@@ -1,8 +1,11 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Paint;
 
 public class Alien3 extends BasicElement implements Inimigo {
+    private static int vidas = 3;
     private Image image;
+    private static int RELOAD_TIME = 200;
 
     public Alien3(int px,int py){
         super(px,py);
@@ -19,35 +22,49 @@ public class Alien3 extends BasicElement implements Inimigo {
     @Override
     public void start(){
         setDirH(1);
-        setSpeed(5);
+        setSpeed(6);
     }
 
 
     @Override
     public void Update(long deltaTime){
+        if(vidas == 0){
+            setColidiu();
+        }
         if (jaColidiu()){
-            Game.getInstance().incPontos();
+            Game.getInstance().incPontos(3);
             deactivate();
         }else{
+            if(RELOAD_TIME <= 0){
+                Game.getInstance().addChar(new Shot(getX(), getY() + 40){
+                    @Override
+                        public void Draw(GraphicsContext graphicsContext){
+                            graphicsContext.setFill(Paint.valueOf("#FFFFFF"));
+                            graphicsContext.fillOval(getX(), getY(), 8, 16);
+                        }
+                    @Override
+                    public void Update(long deltaTime) {
+                        setDirV(1);
+                        if (jaColidiu()) {  // Se colidiu com o inimigo o tiro desaparece
+                            deactivate();
+                        } else {
+                            setPosY(getY() + getDirV() * getSpeed());
+                            if (getY() >= getLMaxH()) { // Se chegou na parte superior da tela o tiro desaparece.
+                                deactivate();
+                            }
+                        }
+                    }});
+                RELOAD_TIME = 200;
+            }
+            RELOAD_TIME--;
             setPosX(getX() + getDirH() * (getSpeed()/2));
-            // Se chegou no lado direito da tela ...
-
-            if(getX() >= getLMaxH()){
-                setPosX(getLMinH()+40);
-                // Sorteia o passo de avanço [1,5]
-                setSpeed(Params.getInstance().nextInt(5)+5);
-                // Se ainda não chegou perto do chão, desce
-                /*if (getY() < 450){ */
-                    setPosY(getY()+85);
+            if(getX() >= getLMaxH()-40){
+                setPosX(getLMinH());
+                setPosY(getY()+45);
             }
             if(getX() < getLMinH()){
                 setPosX(getLMaxH()-40);
-                // Sorteia o passo de avanço [1,5]
-                setSpeed(Params.getInstance().nextInt(5)+5);
-                // Se ainda não chegou perto do chão, desce
-                /*if (getY() < 450){ */
-                    setPosY(getY()+85);
-                
+                setPosY(getY()+45);
             }
             
         }
@@ -61,7 +78,8 @@ public class Alien3 extends BasicElement implements Inimigo {
     public void testaColisao(Character outro){
         if (outro instanceof Inimigo || outro instanceof BlocoDestrutivoBasico){
             return;
-        }else{
+        }
+        else{
             super.testaColisao(outro);
         }
     }

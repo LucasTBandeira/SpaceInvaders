@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
  * @author Bernardo Copstein, Rafael Copstein
  */
 
-public class AdvencedSpaceship extends BasicElement implements KeyboardCtrl {
-    private int RELOAD_TIME = 1000000000; // Time is in nanoseconds
+public class AdvencedSpaceship extends BasicSpaceship implements KeyboardCtrl {
+    private int RELOAD_TIME = 500000000; // Time is in nanoseconds
     private int shot_timer = 0;
     private Image image;
 
@@ -103,12 +103,12 @@ public class AdvencedSpaceship extends BasicElement implements KeyboardCtrl {
 
     @Override
     public int getAltura(){
-        return 100;
+        return 60;
     }
 
     @Override
     public int getLargura(){
-        return 100;
+        return 60;
     }
 
     @Override

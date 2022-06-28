@@ -55,4 +55,6 @@ public class BasicSpaceship extends BasicElement implements KeyboardCtrl{
         graphicsContext.fillRect(getX(), getY()+16, 32, 32);
         graphicsContext.fillRect(getX()+8, getY()-16, 16, 48);
     }
+
+    
 }

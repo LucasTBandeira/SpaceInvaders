@@ -11,16 +11,18 @@ import java.util.LinkedList;
 
 public class Game {
     private static Game game = null;
-    private AdvencedSpaceship nave;
+    private BasicSpaceship nave;
     private List<Character> activeChars;
     private boolean gameOver;
     private int pontos;
     private LocalDate ld;
+    private int faseAtual;
 
     private Game(){
         gameOver = false;
         pontos = 0;
         ld = LocalDate.now();
+        this.faseAtual = 1;
     }
 
     public LocalDate getDate(){
@@ -39,8 +41,8 @@ public class Game {
         return pontos;
     }
 
-    public void incPontos(){
-        pontos++;
+    public void incPontos(int x){
+        this.pontos++;
     }
 
     public static Game getInstance(){
@@ -68,6 +70,28 @@ public class Game {
         activeChars.add(nave);
 
         // Adiciona as barreiras
+        addBarreiras();
+        activeChars.add(new Alien1(0, 50));
+        activeChars.add(new Alien1(100,50));
+        activeChars.add(new Alien1(200,50));
+        activeChars.add(new Alien1(400,50));
+        activeChars.add(new Alien1(600,50));
+        // Adiciona os inimigos
+        // activeChars.add(new Alien2(0, 10));
+        // activeChars.add(new Alien2(100, 10));
+        // activeChars.add(new Alien1(200, 10));
+        // activeChars.add(new Alien1(300, 10));
+        // activeChars.add(new Alien3(400, 10));
+        // activeChars.add(new Alien3(500, 10));
+        //activeChars.add(new AlienBoss(40, 40));
+
+        for(Character c:activeChars){
+            c.start();
+        }
+
+    }
+
+    public void addBarreiras(){
         for(int j = 0; j < 60; j = j + 10){
             for(int i = 0; i < 60; i = i + 11){
                 activeChars.add(new BlocoDestrutivoBasico(40+i, 400+j));
@@ -83,18 +107,6 @@ public class Game {
                 activeChars.add(new BlocoDestrutivoBasico(680+i, 400+j));
             }
         }
-        // Adiciona os inimigos
-        activeChars.add(new Alien2(0, 10));
-        activeChars.add(new Alien2(100, 10));
-        activeChars.add(new Alien1(200, 10));
-        activeChars.add(new Alien1(300, 10));
-        activeChars.add(new Alien3(400, 10));
-        activeChars.add(new Alien3(500, 10));
-
-        for(Character c:activeChars){
-            c.start();
-        }
-
     }
 
     public void Update(long currentTime, long deltaTime) {

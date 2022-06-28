@@ -14,6 +14,7 @@ public class Alien1 extends BasicElement implements Inimigo {
             System.out.println(e.getMessage());
             System.exit(1);
         }
+        
     }
 
     @Override
@@ -26,30 +27,16 @@ public class Alien1 extends BasicElement implements Inimigo {
     @Override
     public void Update(long deltaTime){
         if (jaColidiu()){
-            Game.getInstance().incPontos();
+            Game.getInstance().incPontos(1);
             deactivate();
         }else{
             setPosX(getX() + getDirH() * (getSpeed()/2));
             // Se chegou no lado direito da tela ...
-
-            if(getX() >= getLMaxH()){
-                setPosX(getLMinH()+40);
-                // Sorteia o passo de avanço [1,5]
-                setSpeed(Params.getInstance().nextInt(5)+5);
-                // Se ainda não chegou perto do chão, desce
-                /*if (getY() < 450){ */
-                    setPosY(getY()+85);
+            if (getX() >= getLMaxH()-40 || getX() < getLMinH()){
+                // Inverte a direção
+                setDirH(getDirH()*-1);
+                setPosY(getY()+25);
             }
-            if(getX() < getLMinH()){
-                setPosX(getLMaxH()-40);
-                // Sorteia o passo de avanço [1,5]
-                setSpeed(Params.getInstance().nextInt(5)+5);
-                // Se ainda não chegou perto do chão, desce
-                /*if (getY() < 450){ */
-                    setPosY(getY()+85);
-                
-            }
-            
         }
     }
 
@@ -65,5 +52,6 @@ public class Alien1 extends BasicElement implements Inimigo {
             super.testaColisao(outro);
         }
     }
+    
     
 }

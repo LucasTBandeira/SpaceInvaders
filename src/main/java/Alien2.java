@@ -3,7 +3,6 @@ import javafx.scene.image.Image;
 
 public class Alien2 extends BasicElement implements Inimigo{
     private Image image;
-    private static int count;
     public Alien2(int px,int py){
         super(px,py);
         try{
@@ -25,32 +24,17 @@ public class Alien2 extends BasicElement implements Inimigo{
     @Override
     public void Update(long deltaTime){
         if (jaColidiu()){
-            Game.getInstance().incPontos();
+            Game.getInstance().incPontos(2);
             deactivate();
         }else{
-            //if( count > 4){ remover caso queira diminuir a velocidade de queda.
-                setPosY(getY() + 1);
-                count = 0;
-           // }
-            count++;
+            setPosY(getY() + 1);
             setPosX(getX() + getDirH() * (getSpeed()/2));
             // Se chegou no lado direito da tela ...
             if (getX() >= getLMaxH() || getX() < getLMinH()){
-                // Inverte a direção
                 setDirH(getDirH()*-1);
-                // Sorteia o passo de avanço [1,5]
-                setSpeed(Params.getInstance().nextInt(5)+5);
-                // Se ainda não chegou perto do chão, desce
-                /*if (getY() < 450){ */
-                    setPosY(getY()+25);
-                //}
             }
         }
     }
-
-    // private int getRandomNumber(int min, int max) {
-    //     return (int) ((Math.random() * (max - min)) + min);
-    // }
 
     @Override
     public void testaColisao(Character outro){
