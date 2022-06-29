@@ -11,6 +11,7 @@ import java.util.LinkedList;
 
 public class Game {
     private static Game game = null;
+    public static final int MAX_LEVEL = 3;
     private BasicSpaceship nave;
     private List<Character> activeChars;
     private boolean gameOver;
@@ -22,7 +23,7 @@ public class Game {
         gameOver = false;
         pontos = 0;
         ld = LocalDate.now();
-        this.faseAtual = 1;
+        faseAtual = 1;
     }
 
     public LocalDate getDate(){
@@ -37,6 +38,16 @@ public class Game {
         return gameOver;
     }
 
+    public boolean isGameWon(){
+        return areAllEnemiesDead();
+    }
+
+    private boolean areAllEnemiesDead() {
+        return !activeChars
+            .stream()
+            .anyMatch(c -> c instanceof Inimigo);
+    }
+
     public int getPontos(){
         return pontos;
     }
@@ -46,7 +57,7 @@ public class Game {
     }
 
     public static Game getInstance(){
-        if (game == null){
+        if (game == null) {
             game = new Game();
         }
         return(game);
@@ -61,7 +72,18 @@ public class Game {
         activeChars.remove(c);
     }
 
+    public int getNextLevel() {
+        return faseAtual + 1;
+    }
+
+    public void loadLevel(int level){
+        faseAtual = level;
+        pontos = 0;
+        Start();
+    }
+
     public void Start() {
+        this.gameOver = false;
         // Repositório de personagens
         activeChars = new LinkedList<>();
 
@@ -71,24 +93,43 @@ public class Game {
 
         // Adiciona as barreiras
         addBarreiras();
-        activeChars.add(new Alien1(0, 50));
-        activeChars.add(new Alien1(100,50));
-        activeChars.add(new Alien1(200,50));
-        activeChars.add(new Alien1(400,50));
-        activeChars.add(new Alien1(600,50));
-        // Adiciona os inimigos
-        // activeChars.add(new Alien2(0, 10));
-        // activeChars.add(new Alien2(100, 10));
-        // activeChars.add(new Alien1(200, 10));
-        // activeChars.add(new Alien1(300, 10));
-        // activeChars.add(new Alien3(400, 10));
-        // activeChars.add(new Alien3(500, 10));
-        //activeChars.add(new AlienBoss(40, 40));
+        if (this.faseAtual == 1) {
+            this.addLevel1Enemies();
+        } else if (this.faseAtual == 2) {
+            this.addLevel2Enemies();
+        } 
+        else if (this.faseAtual == 3) {
+            this.addLevel3Enemies();
+        }
 
         for(Character c:activeChars){
             c.start();
         }
 
+    }
+
+    public void show() {
+        game.show();
+    }
+
+    private void addLevel1Enemies() {
+        int quantEnemis = 5;
+        for (int i = 0; i < quantEnemis; i++) {
+            activeChars.add(new Alien1(i * 100, 50));
+        }
+    }
+    
+    private void addLevel2Enemies() {
+        activeChars.add(new Alien2(0, 10));
+        activeChars.add(new Alien2(100, 10));
+        activeChars.add(new Alien1(200, 10));
+        activeChars.add(new Alien1(300, 10));
+        activeChars.add(new Alien3(400, 10));
+        activeChars.add(new Alien3(500, 10));
+    }
+    
+    private void addLevel3Enemies() {
+        activeChars.add(new AlienBoss(40, 40));
     }
 
     public void addBarreiras(){
