@@ -1,4 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 
@@ -10,10 +11,17 @@ import javafx.scene.paint.Paint;
 public class BasicSpaceship extends BasicElement implements KeyboardCtrl{
     private int RELOAD_TIME = 100000000;  // Time is in nanoseconds
     private int shot_timer = 0;
+    private Image image;
 
     public BasicSpaceship(int px,int py){
         super(px,py);
         setSpeed(2);
+        try {
+            image = new Image("spaceshipBasic.png", 0, 60, true, true); // Carrega a imagem ajustando a altura para 40 pixels e mantendo proporções
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
     }
 
     @Override
@@ -51,9 +59,7 @@ public class BasicSpaceship extends BasicElement implements KeyboardCtrl{
 
     @Override
     public void Draw(GraphicsContext graphicsContext) {
-        graphicsContext.setFill(Paint.valueOf("#FF0000"));
-        graphicsContext.fillRect(getX(), getY()+16, 32, 32);
-        graphicsContext.fillRect(getX()+8, getY()-16, 16, 48);
+        graphicsContext.drawImage(image, getX(), getY());
     }
 
     

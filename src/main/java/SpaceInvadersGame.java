@@ -29,7 +29,7 @@ public class SpaceInvadersGame {  // Classe responsável por criar a tela do jog
         fundo();
     }
 
-    // Constrói a tela ddo jogo, inicializando os objetos do Javafx e chamando os métodos
+    // Constrói a tela do jogo, inicializando os objetos do Javafx e chamando os métodos
     // responsáveis por construir os elementos presentes nela.
     public static SpaceInvadersGame getInstance(Player player) {  // Recebe uma instância de Player 
         if (jogo == null) {
@@ -89,15 +89,14 @@ public class SpaceInvadersGame {  // Classe responsável por criar a tela do jog
                 Game.getInstance().Draw(gc);
 
                 lastNanoTime = currentNanoTime;
-
+                Integer pontos = Game.getInstance().getPontos();
                 if (Game.getInstance().isGameOver()){
                     stop();
-                    RankingFileHandler.writeRanking(player.toString());
+                    RankingFileHandler.writeRanking(player.getName(), pontos);
                     goToGameOverScreen();
                 } else if (Game.getInstance().isGameWon()){
                     stop();
                     Game.getInstance().getNextLevel();
-
                 }
             }
             

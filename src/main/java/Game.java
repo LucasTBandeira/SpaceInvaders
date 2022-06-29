@@ -40,11 +40,7 @@ public class Game {
     }
 
     public boolean isGameOver(){
-        if (vidas == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return gameOver;
     }
 
     public boolean isGameWon(){
@@ -107,7 +103,7 @@ public class Game {
         // Repositório de personagens
         activeChars = new LinkedList<>();
         // Adiciona a nave
-        naveBasic = new BasicSpaceship(400,550);
+        naveBasic = new AdvencedSpaceship(400,550);
         activeChars.add(naveBasic);
         // Adiciona as barreiras
         addBarreiras();

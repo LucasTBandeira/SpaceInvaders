@@ -20,7 +20,7 @@ public class Alien1 extends BasicElement implements Enemies {
     @Override
     public void start(){
         setDirH(1);
-        setSpeed(5);
+        setSpeed(20);
     }
 
 

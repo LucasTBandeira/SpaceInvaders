@@ -17,7 +17,7 @@ public class AdvencedSpaceship extends BasicSpaceship implements KeyboardCtrl {
         super(px, py);
         setSpeed(4);
         try {
-            image = new Image("spaceship.png", 0, 60, true, true); // Carrega a imagem ajustando a altura para 40 pixels e mantendo proporções
+            image = new Image("spaceshipAdvenced.png", 0, 80, true, true); // Carrega a imagem ajustando a altura para 40 pixels e mantendo proporções
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(1);
@@ -103,7 +103,7 @@ public class AdvencedSpaceship extends BasicSpaceship implements KeyboardCtrl {
 
     @Override
     public int getAltura(){
-        return 60;
+        return 90;
     }
 
     @Override

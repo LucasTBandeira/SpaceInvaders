@@ -1,11 +1,10 @@
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -28,6 +27,7 @@ public class Ranking {
     private Scene rankScene;
     private Stage rankStage;
     private ArrayList<Botao> botoes;
+    private BufferedReader reader;
 
     private Ranking() {
         rankPane = new Pane();
@@ -53,6 +53,10 @@ public class Ranking {
         rankStage.show();
     }
 
+    private void escreveRank() {
+        
+    }
+    
     private void fundo() {
         Image imagemFundo = new Image("backgroundGame.jpg", 800, 600, false, true);
         BackgroundImage fundo = new BackgroundImage(imagemFundo, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
