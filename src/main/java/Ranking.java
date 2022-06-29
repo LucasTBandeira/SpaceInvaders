@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -25,15 +27,18 @@ public class Ranking {
     private Pane rankPane;
     private Scene rankScene;
     private Stage rankStage;
+    private ArrayList<Botao> botoes;
 
     private Ranking() {
         rankPane = new Pane();
         rankScene = new Scene(rankPane, Params.WINDOW_WIDTH, Params.WINDOW_HEIGHT);
         rankStage = new Stage();
         rankStage.setScene(rankScene);
+        this.botoes = new ArrayList<>();
         fundo();
         tituloCena();
         logo();
+        backButton();
         rankStage.show();
     }
 
@@ -103,6 +108,27 @@ public class Ranking {
     private void tituloCena() {
         rankStage.setTitle("Space Invaders Score Board");
         rankStage.setScene(rankScene);
+    }
+
+    private void backButton() {
+        Botao botao = new Botao("Back");
+        
+        botao.setLayoutX(10);
+        botao.setLayoutY(10);
+        botao.setPrefWidth(100);
+        botao.setPrefHeight(40);
+        botoes.add(botao);
+        rankPane.getChildren().add(botao);
+
+        botao.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent evento) {
+                Menu.getInstance().showMenu();
+                rankStage.close();
+            }
+
+        });
     }
 
 }

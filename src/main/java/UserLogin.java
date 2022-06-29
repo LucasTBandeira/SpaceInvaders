@@ -78,15 +78,21 @@ public class UserLogin {
     }
 
     private void botaoVoltar() { // Método para criar o Botão Jogar do Menu
-        Botao botao = new Botao("MENU");
-        adicionaBotoes(botao);
+        Botao botao = new Botao("Back");
+        
+        botao.setLayoutX(10);
+        botao.setLayoutY(10);
+        botao.setPrefWidth(100);
+        botao.setPrefHeight(40);
+        botoesLogin.add(botao);
+        loginPane.getChildren().add(botao);
 
         botao.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent evento) {
                 Menu.getInstance().showMenu();
-                loginStage.close();
+            loginStage.close();
             }
 
         });

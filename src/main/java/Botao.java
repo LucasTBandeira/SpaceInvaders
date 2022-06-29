@@ -1,3 +1,4 @@
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -10,6 +11,7 @@ public class Botao extends Button{  // Classe para criar os botões do Menu. Her
         setText(textoBotao);
         setFonteBotao(); 
         setEstiloBotao();
+        setCursor(Cursor.HAND);
         setPrefWidth(200);  // Width da imagem do botão
         setPrefHeight(50);  // Height da imagem do botão
     }
