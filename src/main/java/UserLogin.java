@@ -51,7 +51,7 @@ public class UserLogin {
 
     private void adicionaBotoes(Botao botao) { // Método para organizar a criação de botões do Menu
         botao.setLayoutX(300);
-        botao.setLayoutY(100 + botoesLogin.size() * 100);
+        botao.setLayoutY(140 + botoesLogin.size() * 100);
         botoesLogin.add(botao);
         loginPane.getChildren().add(botao);
     }
@@ -70,7 +70,12 @@ public class UserLogin {
             
             @Override
             public void handle(ActionEvent evento) {
-                SpaceInvadersGame.getInstance();
+                if (username.getText().isEmpty()) {
+                    username.setText("Player");
+                }
+                SpaceInvadersGame.getInstance(new Player(username.getText()));
+                SpaceInvadersGame.getInstance().iniciaJogo();
+                SpaceInvadersGame.getInstance().show();
                 loginStage.close();
             }
 
@@ -78,15 +83,21 @@ public class UserLogin {
     }
 
     private void botaoVoltar() { // Método para criar o Botão Jogar do Menu
-        Botao botao = new Botao("MENU");
-        adicionaBotoes(botao);
+        Botao botao = new Botao("Back");
+        
+        botao.setLayoutX(10);
+        botao.setLayoutY(10);
+        botao.setPrefWidth(100);
+        botao.setPrefHeight(40);
+        botoesLogin.add(botao);
+        loginPane.getChildren().add(botao);
 
         botao.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent evento) {
                 Menu.getInstance().showMenu();
-                loginStage.close();
+            loginStage.close();
             }
 
         });
@@ -98,10 +109,10 @@ public class UserLogin {
         label.setTextFill(Color.YELLOW);
         label.setFont(Font.font("Verdana",FontWeight.NORMAL,20));
         label.setLayoutX(255);
-        label.setLayoutY(40);
+        label.setLayoutY(70);
         username = new TextField();
         username.setLayoutX(370);
-        username.setLayoutY(40);
+        username.setLayoutY(70);
         loginPane.getChildren().addAll(username, label);
     }
 

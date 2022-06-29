@@ -1,3 +1,4 @@
+import FileHelper.RankingFileHandler;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,6 +18,7 @@ public class SpaceInvadersGame {
     private Pane gamePane;
     private Scene gameScene;
     private Stage gameStage;
+    private Player player;
 
     public SpaceInvadersGame() {
         gamePane = new Pane();
@@ -25,8 +27,14 @@ public class SpaceInvadersGame {
         gameStage.setScene(gameScene);
         tituloCena();
         fundo();
-        iniciaJogo();
-        gameStage.show();
+    }
+
+    public static SpaceInvadersGame getInstance(Player player) {
+        if (jogo == null) {
+            jogo = new SpaceInvadersGame();
+        }
+        jogo.setPlayer(player);
+        return jogo;
     }
 
     public static SpaceInvadersGame getInstance() {
@@ -36,24 +44,33 @@ public class SpaceInvadersGame {
         return jogo;
     }
 
-    private void iniciaJogo() {
-        Canvas canvas = new Canvas(Params.WINDOW_WIDTH, Params.WINDOW_HEIGHT );
-        gamePane.getChildren().add(canvas);
-    
-        Game.getInstance().Start();
+    public void show() {
+        gameStage.show();
+    }
 
+    public void iniciaJogo() {
+        iniciaJogo(1);
+    }
+
+    public void iniciaJogo(int level) {
+        Canvas canvas = new Canvas(Params.WINDOW_WIDTH, Params.WINDOW_HEIGHT );
+        gamePane.getChildren().clear();
+        gamePane.getChildren().add(canvas);
+        
+        Game.getInstance().loadLevel(level);
+        
         // Register User Input Handler
         gameScene.setOnKeyPressed((KeyEvent event) -> {
             Game.getInstance().OnInput(event.getCode(), true);
         });
-
+        
         gameScene.setOnKeyReleased((KeyEvent event) -> {
             Game.getInstance().OnInput(event.getCode(), false);
         });
-
+        
         // Register Game Loop
         final GraphicsContext gc = canvas.getGraphicsContext2D();
-
+        
         new AnimationTimer(){
             long lastNanoTime = System.nanoTime();
 
@@ -69,8 +86,12 @@ public class SpaceInvadersGame {
                 lastNanoTime = currentNanoTime;
 
                 if (Game.getInstance().isGameOver()){
-                    
                     stop();
+                    RankingFileHandler.writeRanking(player.toString());
+                    goToGameOverScreen();
+                } else if (Game.getInstance().isGameWon()){
+                    stop();
+                    goToGameWonScreen(Game.getInstance().getNextLevel());
                 }
             }
 
@@ -88,6 +109,20 @@ public class SpaceInvadersGame {
     private void tituloCena() {
         gameStage.setTitle("Space Invaders");
         gameStage.setScene(gameScene);
+    }
+
+    private void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    private void goToGameOverScreen() {
+        GameOverScreen.getInstance().show();
+        gameStage.close();
+    }
+
+    private void goToGameWonScreen(int nextLevel) {
+        GameWonScreen.getInstance(nextLevel).show();
+        gameStage.close();
     }
 
 }
