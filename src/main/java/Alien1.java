@@ -1,7 +1,7 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class Alien1 extends BasicElement implements Inimigo {
+public class Alien1 extends BasicElement implements Enemies {
     private Image image;
 
     public Alien1(int px,int py){
@@ -46,7 +46,7 @@ public class Alien1 extends BasicElement implements Inimigo {
 
     @Override
     public void testaColisao(Character outro){
-        if (outro instanceof Inimigo || outro instanceof BlocoDestrutivoBasico){
+        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico){
             return;
         }else{
             super.testaColisao(outro);

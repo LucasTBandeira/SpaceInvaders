@@ -2,7 +2,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 
-public class Alien3 extends BasicElement implements Inimigo {
+public class Alien3 extends BasicElement implements Enemies {
     private static int vidas = 3;
     private Image image;
     private static int RELOAD_TIME = 200;
@@ -76,7 +76,7 @@ public class Alien3 extends BasicElement implements Inimigo {
 
     @Override
     public void testaColisao(Character outro){
-        if (outro instanceof Inimigo || outro instanceof BlocoDestrutivoBasico){
+        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico){
             return;
         }
         else{

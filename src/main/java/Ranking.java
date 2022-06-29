@@ -49,43 +49,8 @@ public class Ranking {
         return ranking;
     }
 
-    private void mostraRanking() {
-        ArrayList<String> list = getRanking(); 
-
-
-
-        String dir = Paths.get("").toAbsolutePath().toString();
-        Charset charset = Charset.forName("UTF-8");
-        String nameComplete = dir + "/" + "ranking.txt";
-        Path path = Paths.get(nameComplete);
-        try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(path, charset))) {
-            for (int i = 0; i < list.size(); i++) {
-                String jogador = list.get(i);
-                writer.println(jogador);
-            }
-        } catch (IOException e) {
-            System.err.format("Erro", e);
-        }
-
-    }
-
-    private ArrayList<String> getRanking() {
-        ArrayList<String> colocacao = new ArrayList<>(10);
-        Charset charset = Charset.forName("UTF-8");
-        String dir = Paths.get("").toAbsolutePath().toString();
-        String nameComplete = dir + "/" + "ranking.txt";
-        Path path = Paths.get(nameComplete);
-        int cont = 0;
-        try (Scanner txt = new Scanner(Files.newBufferedReader(path, charset))) {
-            while (txt.hasNext() && cont < 10) {
-                String jogador = txt.nextLine();
-                colocacao.add(jogador);
-                cont++;
-            }
-        } catch (IOException e) {
-            System.err.format("Erro na leitura do ranking!", e);
-        }
-        return colocacao;
+    public void showRanking() {
+        rankStage.show();
     }
 
     private void fundo() {

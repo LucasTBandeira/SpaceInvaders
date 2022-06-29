@@ -2,7 +2,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 
-public class AlienBoss extends Alien1 implements Inimigo {
+public class AlienBoss extends Alien1 implements Enemies {
     private Image image;
     private static int vidas;
     private int RELOAD_TIME = 500000000;  // Time is in nanoseconds
@@ -103,7 +103,7 @@ public class AlienBoss extends Alien1 implements Inimigo {
 
     @Override
     public void testaColisao(Character outro){
-        if (outro instanceof Inimigo || outro instanceof BlocoDestrutivoBasico){
+        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico){
             return;
         }else{
             if (colidiu){

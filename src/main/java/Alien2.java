@@ -1,7 +1,7 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class Alien2 extends BasicElement implements Inimigo{
+public class Alien2 extends BasicElement implements Enemies{
     private Image image;
     public Alien2(int px,int py){
         super(px,py);
@@ -41,7 +41,7 @@ public class Alien2 extends BasicElement implements Inimigo{
         if(getY()>=600){
             Game.getInstance().setGameOver();
         }
-        if (outro instanceof Inimigo || outro instanceof BlocoDestrutivoBasico){
+        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico){
             return;
         }else{
             super.testaColisao(outro);

@@ -13,7 +13,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class SpaceInvadersGame {
+public class SpaceInvadersGame {  // Classe responsável por criar a tela do jogo e inicializar uma instância do mesmo
     private static SpaceInvadersGame jogo = null;
     private Pane gamePane;
     private Scene gameScene;
@@ -29,7 +29,9 @@ public class SpaceInvadersGame {
         fundo();
     }
 
-    public static SpaceInvadersGame getInstance(Player player) {
+    // Constrói a tela ddo jogo, inicializando os objetos do Javafx e chamando os métodos
+    // responsáveis por construir os elementos presentes nela.
+    public static SpaceInvadersGame getInstance(Player player) {  // Recebe uma instância de Player 
         if (jogo == null) {
             jogo = new SpaceInvadersGame();
         }
@@ -37,6 +39,7 @@ public class SpaceInvadersGame {
         return jogo;
     }
 
+    // Sobrecarga de método
     public static SpaceInvadersGame getInstance() {
         if (jogo == null) {
             jogo = new SpaceInvadersGame();
@@ -44,10 +47,12 @@ public class SpaceInvadersGame {
         return jogo;
     }
 
+    // Método para mostrar o stage do jogo
     public void show() {
         gameStage.show();
     }
 
+    // Método para iniciar o jogo
     public void iniciaJogo() {
         iniciaJogo(1);
     }
@@ -91,10 +96,11 @@ public class SpaceInvadersGame {
                     goToGameOverScreen();
                 } else if (Game.getInstance().isGameWon()){
                     stop();
-                    goToGameWonScreen(Game.getInstance().getNextLevel());
+                    Game.getInstance().getNextLevel();
+
                 }
             }
-
+            
         }.start();
         
     }
@@ -117,11 +123,6 @@ public class SpaceInvadersGame {
 
     private void goToGameOverScreen() {
         GameOverScreen.getInstance().show();
-        gameStage.close();
-    }
-
-    private void goToGameWonScreen(int nextLevel) {
-        GameWonScreen.getInstance(nextLevel).show();
         gameStage.close();
     }
 

@@ -1,5 +1,8 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
 import java.util.List;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -12,18 +15,20 @@ import java.util.LinkedList;
 public class Game {
     private static Game game = null;
     public static final int MAX_LEVEL = 3;
-    private BasicSpaceship nave;
+    private BasicSpaceship naveBasic;
+    private AdvencedSpaceship naveAdvenced;
     private List<Character> activeChars;
     private boolean gameOver;
     private int pontos;
     private LocalDate ld;
-    private int faseAtual;
+    private int fase;
+    private int vidas;
 
     private Game(){
         gameOver = false;
         pontos = 0;
         ld = LocalDate.now();
-        faseAtual = 1;
+        fase = 1;
     }
 
     public LocalDate getDate(){
@@ -35,7 +40,11 @@ public class Game {
     }
 
     public boolean isGameOver(){
-        return gameOver;
+        if (vidas == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean isGameWon(){
@@ -45,7 +54,7 @@ public class Game {
     private boolean areAllEnemiesDead() {
         return !activeChars
             .stream()
-            .anyMatch(c -> c instanceof Inimigo);
+            .anyMatch(c -> c instanceof Enemies);
     }
 
     public int getPontos(){
@@ -54,6 +63,17 @@ public class Game {
 
     public void incPontos(int x){
         this.pontos++;
+    }
+
+    public int getVidas(){
+        return vidas;
+    }
+
+    public void decVidas(){
+        vidas--;
+        if(isGameOver()){
+            activeChars.clear();
+        }
     }
 
     public static Game getInstance(){
@@ -73,39 +93,35 @@ public class Game {
     }
 
     public int getNextLevel() {
-        return faseAtual + 1;
+        return fase + 1;
     }
 
     public void loadLevel(int level){
-        faseAtual = level;
-        pontos = 0;
+        fase = level;
         Start();
     }
 
     public void Start() {
         this.gameOver = false;
+        this.vidas = 3;
         // Repositório de personagens
         activeChars = new LinkedList<>();
-
-        // Adiciona o canhao
-        nave = new AdvencedSpaceship(400,550);
-        activeChars.add(nave);
-
+        // Adiciona a nave
+        naveBasic = new BasicSpaceship(400,550);
+        activeChars.add(naveBasic);
         // Adiciona as barreiras
         addBarreiras();
-        if (this.faseAtual == 1) {
+        if (this.fase == 1) {
             this.addLevel1Enemies();
-        } else if (this.faseAtual == 2) {
+        } else if (this.fase == 2) {
             this.addLevel2Enemies();
         } 
-        else if (this.faseAtual == 3) {
+        else if (this.fase == 3) {
             this.addLevel3Enemies();
         }
-
         for(Character c:activeChars){
             c.start();
         }
-
     }
 
     public void show() {
@@ -113,7 +129,7 @@ public class Game {
     }
 
     private void addLevel1Enemies() {
-        int quantEnemis = 5;
+        int quantEnemis = 10;
         for (int i = 0; i < quantEnemis; i++) {
             activeChars.add(new Alien1(i * 100, 50));
         }
@@ -168,13 +184,27 @@ public class Game {
     }
 
     public void OnInput(KeyCode keyCode, boolean isPressed) {
-        nave.OnInput(keyCode, isPressed);
+        naveBasic.OnInput(keyCode, isPressed);
     }
 
     public void Draw(GraphicsContext graphicsContext) {
+        drawPoint(graphicsContext);
+        drawLifes(graphicsContext);
         for(Character c:activeChars){
             c.Draw(graphicsContext);
         }
+    }
+
+    private void drawPoint(GraphicsContext graphicsContext){
+        graphicsContext.setFont(new Font("Verdana", 20));
+        graphicsContext.setFill(Color.BLUE);
+        graphicsContext.fillText("Pontos: " + getPontos(), 10, 20);
+    }
+
+    private void drawLifes(GraphicsContext graphicsContext){
+        graphicsContext.setFont(new Font("Verdana", 20));
+        graphicsContext.setFill(Color.RED);
+        graphicsContext.fillText("Vidas: " + getVidas(), 10, 40);
     }
 
     public int activeCharsSize(){
