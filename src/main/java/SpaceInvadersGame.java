@@ -1,4 +1,3 @@
-import FileHelper.RankingFileHandler;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -95,7 +94,6 @@ public class SpaceInvadersGame {  // Classe responsável por criar a tela do jog
                     RankingFileHandler.writeRanking(player.getName(), pontos);
                     goToGameOverScreen();
                 } else if (Game.getInstance().isGameWon()){
-                    stop();
                     Game.getInstance().getNextLevel();
                 }
             }

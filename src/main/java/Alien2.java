@@ -39,9 +39,9 @@ public class Alien2 extends BasicElement implements Enemies{
     @Override
     public void testaColisao(Character outro){
         if(getY()>=600){
-            Game.getInstance().setGameOver();
+            Game.vidas --;
         }
-        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico){
+        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico || outro instanceof EnemyShot){
             return;
         }else{
             super.testaColisao(outro);

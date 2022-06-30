@@ -36,7 +36,7 @@ public class Alien3 extends BasicElement implements Enemies {
             deactivate();
         }else{
             if(RELOAD_TIME <= 0){
-                Game.getInstance().addChar(new Shot(getX(), getY() + 40){
+                Game.getInstance().addChar(new EnemyShot(getX(), getY() + 40){
                     @Override
                         public void Draw(GraphicsContext graphicsContext){
                             graphicsContext.setFill(Paint.valueOf("#FFFFFF"));
@@ -76,7 +76,7 @@ public class Alien3 extends BasicElement implements Enemies {
 
     @Override
     public void testaColisao(Character outro){
-        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico){
+        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico || outro instanceof EnemyShot){
             return;
         }
         else{

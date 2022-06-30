@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -27,7 +22,6 @@ public class Ranking {
     private Scene rankScene;
     private Stage rankStage;
     private ArrayList<Botao> botoes;
-    private BufferedReader reader;
 
     private Ranking() {
         rankPane = new Pane();
@@ -39,6 +33,7 @@ public class Ranking {
         tituloCena();
         logo();
         backButton();
+        displayRank();
         rankStage.show();
     }
 
@@ -53,8 +48,18 @@ public class Ranking {
         rankStage.show();
     }
 
-    private void escreveRank() {
-        
+    private void displayRank() {
+        List<Player> ranking = RankingFileHandler.readRanking();
+        int aux = 0;
+        for (Player player : ranking) {
+            Label label = new Label(player.getName() + ": " + player.getScore());
+            Font font = Font.font("Verdana", FontWeight.BLACK, 30);
+            label.setFont(font);
+            label.setTextFill(Color.WHITE);
+            label.setTranslateX(260);
+            label.setTranslateY(80 + 40 * (aux++));
+            rankPane.getChildren().add(label);
+        }
     }
     
     private void fundo() {
@@ -70,7 +75,7 @@ public class Ranking {
         sceneTitle.setFont(font);
         sceneTitle.setTextFill(Color.YELLOW);
         sceneTitle.setTranslateX(300);
-        sceneTitle.setTranslateY(80);
+        sceneTitle.setTranslateY(30);
         rankPane.getChildren().add(sceneTitle);
     }
 

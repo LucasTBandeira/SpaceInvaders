@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
  * @author Bernardo Copstein, Rafael Copstein
  */
 
-public class AdvencedSpaceship extends BasicSpaceship implements KeyboardCtrl {
-    private int RELOAD_TIME = 500000000; // Time is in nanoseconds
+public class AdvencedSpaceship extends BasicSpaceship{
+    private int RELOAD_TIME = 500000000; //500000000 // Time is in nanoseconds
     private int shot_timer = 0;
     private Image image;
 
@@ -17,7 +17,7 @@ public class AdvencedSpaceship extends BasicSpaceship implements KeyboardCtrl {
         super(px, py);
         setSpeed(4);
         try {
-            image = new Image("spaceshipAdvenced.png", 0, 80, true, true); // Carrega a imagem ajustando a altura para 40 pixels e mantendo proporções
+            image = new Image("spaceshipAdvenced.png", 0, 60, true, true); // Carrega a imagem ajustando a altura para 40 pixels e mantendo proporções
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(1);
@@ -93,9 +93,13 @@ public class AdvencedSpaceship extends BasicSpaceship implements KeyboardCtrl {
                             }
                         }
                     }});
-
-
                 shot_timer = RELOAD_TIME;
+            }
+        }
+        if (keyCode == KeyCode.B){
+            if (shot_timer <= 0) {
+            Game.getInstance().nuke();
+            shot_timer = RELOAD_TIME;
             }
         }
 
@@ -103,7 +107,7 @@ public class AdvencedSpaceship extends BasicSpaceship implements KeyboardCtrl {
 
     @Override
     public int getAltura(){
-        return 90;
+        return 60;
     }
 
     @Override

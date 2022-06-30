@@ -20,7 +20,7 @@ public class Alien1 extends BasicElement implements Enemies {
     @Override
     public void start(){
         setDirH(1);
-        setSpeed(20);
+        setSpeed(5);
     }
 
 
@@ -46,7 +46,7 @@ public class Alien1 extends BasicElement implements Enemies {
 
     @Override
     public void testaColisao(Character outro){
-        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico){
+        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico || outro instanceof EnemyShot){
             return;
         }else{
             super.testaColisao(outro);

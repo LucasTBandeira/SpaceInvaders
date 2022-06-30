@@ -2,7 +2,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 
-public class AlienBoss extends Alien1 implements Enemies {
+public class AlienBoss extends Alien1{
     private Image image;
     private static int vidas;
     private int RELOAD_TIME = 500000000;  // Time is in nanoseconds
@@ -30,7 +30,7 @@ public class AlienBoss extends Alien1 implements Enemies {
         }else{
             if (shot_timer <= 0) {
                 shot_timer = RELOAD_TIME;
-                Game.getInstance().addChar(new Shot(getX() + 46, getY() + 32){
+                Game.getInstance().addChar(new EnemyShot(getX() + 46, getY() + 32){
                     @Override
                         public void Draw(GraphicsContext graphicsContext){
                             graphicsContext.setFill(Paint.valueOf("#FF0000"));
@@ -48,7 +48,7 @@ public class AlienBoss extends Alien1 implements Enemies {
                             }
                         }
                     }});
-                    Game.getInstance().addChar(new Shot(getX() + 24, getY() + 32){
+                    Game.getInstance().addChar(new EnemyShot(getX() + 24, getY() + 32){
                         @Override
                         public void Draw(GraphicsContext graphicsContext){
                             graphicsContext.setFill(Paint.valueOf("#FF0000"));
@@ -66,7 +66,7 @@ public class AlienBoss extends Alien1 implements Enemies {
                         }
 
                     });
-                    Game.getInstance().addChar(new Shot(getX(), getY() + 32){
+                    Game.getInstance().addChar(new EnemyShot(getX(), getY() + 32){
                         @Override
                         public void Draw(GraphicsContext graphicsContext){
                             graphicsContext.setFill(Paint.valueOf("#FF0000"));
@@ -96,14 +96,14 @@ public class AlienBoss extends Alien1 implements Enemies {
             if (getX() >= getLMaxH()-40 || getX() < getLMinH()){
                 // Inverte a direção
                 setDirH(getDirH()*-1);
-                setPosY(getY()+25);
+                setPosY(getY()+55);
             }
             if (shot_timer > 0) shot_timer -= deltaTime;
         }
 
     @Override
     public void testaColisao(Character outro){
-        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico){
+        if (outro instanceof Enemies || outro instanceof BlocoDestrutivoBasico || outro instanceof EnemyShot){
             return;
         }else{
             if (colidiu){
@@ -130,7 +130,5 @@ public class AlienBoss extends Alien1 implements Enemies {
             }
         }
     }
-
-    
-    
+   
 }
