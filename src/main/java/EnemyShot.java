@@ -1,3 +1,8 @@
+/* Lucas Treviso Bandeira - 21104312-0
+ * Natália Dal Pizzol - 21200917-9
+ * Vermon João de Aguiar Neto - 21200965-8
+ */
+
 public class EnemyShot extends Shot{
 
     public EnemyShot(int px, int py) {

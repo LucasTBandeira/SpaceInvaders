@@ -1,4 +1,3 @@
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,6 +6,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.io.File;
+
+/* Lucas Treviso Bandeira - 21104312-0
+ * Natália Dal Pizzol - 21200917-9
+ * Vermon João de Aguiar Neto - 21200965-8
+ */
 
 public class RankingFileHandler {
     private static final String FILE_NAME = "ranking.txt";

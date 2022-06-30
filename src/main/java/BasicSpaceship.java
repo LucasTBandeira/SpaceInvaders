@@ -1,11 +1,15 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Paint;
 
 /**
  * Represents the game Gun
  * @author Bernardo Copstein, Rafael Copstein
+ */
+
+ /* Lucas Treviso Bandeira - 21104312-0
+ * Natália Dal Pizzol - 21200917-9
+ * Vermon João de Aguiar Neto - 21200965-8
  */
 
 public class BasicSpaceship extends BasicElement implements KeyboardCtrl{

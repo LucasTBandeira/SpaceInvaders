@@ -12,6 +12,11 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/* Lucas Treviso Bandeira - 21104312-0
+ * Natália Dal Pizzol - 21200917-9
+ * Vermon João de Aguiar Neto - 21200965-8
+ */
+
 public class SpaceInvadersGame {  // Classe responsável por criar a tela do jogo e inicializar uma instância do mesmo
     private static SpaceInvadersGame jogo = null;
     private Pane gamePane;

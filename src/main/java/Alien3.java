@@ -2,6 +2,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Paint;
 
+/* Lucas Treviso Bandeira - 21104312-0
+ * Natália Dal Pizzol - 21200917-9
+ * Vermon João de Aguiar Neto - 21200965-8
+ */
+
 public class Alien3 extends BasicElement implements Enemies {
     private static int vidas = 3;
     private Image image;

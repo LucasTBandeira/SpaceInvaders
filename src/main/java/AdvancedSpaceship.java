@@ -8,6 +8,11 @@ import javafx.scene.image.Image;
  * @author Bernardo Copstein, Rafael Copstein
  */
 
+ /* Lucas Treviso Bandeira - 21104312-0
+ * Natália Dal Pizzol - 21200917-9
+ * Vermon João de Aguiar Neto - 21200965-8
+ */
+
 public class AdvancedSpaceship extends BasicSpaceship{
     private int RELOAD_TIME = 500000000; //500000000 // Time is in nanoseconds
     private int shot_timer = 0;

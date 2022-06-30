@@ -5,6 +5,7 @@ import javafx.scene.paint.Paint;
  * Represents a shot that crosses the screen from bottom to up and then dismiss
  * @author Bernardo Copstein and Rafael Copstein
  */
+
 public class Shot extends BasicElement{
     public Shot(int px,int py){
         super(px,py);
