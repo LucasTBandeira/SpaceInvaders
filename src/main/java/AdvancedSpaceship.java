@@ -8,12 +8,12 @@ import javafx.scene.image.Image;
  * @author Bernardo Copstein, Rafael Copstein
  */
 
-public class AdvencedSpaceship extends BasicSpaceship{
+public class AdvancedSpaceship extends BasicSpaceship{
     private int RELOAD_TIME = 500000000; //500000000 // Time is in nanoseconds
     private int shot_timer = 0;
     private Image image;
 
-    public AdvencedSpaceship(int px, int py) {
+    public AdvancedSpaceship(int px, int py) {
         super(px, py);
         setSpeed(4);
         try {

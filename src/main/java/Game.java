@@ -227,7 +227,7 @@ public class Game {
         }
         if (fase == 4) {
             activeChars.clear();
-            nave = new AdvencedSpaceship(400, 550);
+            nave = new AdvancedSpaceship(400, 550);
             activeChars.add(nave);
             addBarreiras();
             addLevel5Enemies();
